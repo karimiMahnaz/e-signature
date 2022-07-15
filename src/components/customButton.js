@@ -14,5 +14,5 @@ const CustomButton = ({ title, onPress, color }) => {
         </TouchableOpacity>
     );
 };
-
+  
 export default CustomButton;

@@ -19,7 +19,7 @@ const WelcomeScreen = ({ navigation }) => {
             if (!state.isConnected) { customToast('please connect to the internet'); }
             //confirmationAlert();
             else {
-
+   
                 navigation.setOptions({
                   tabBarStyle: {display: 'none'}
                 

@@ -11,7 +11,7 @@ const ErrorMessage = ({ error, visible }) => {
         </CustomText>
     );
 };
-
+   
 export default ErrorMessage;
 
 const styles = StyleSheet.create({

@@ -126,7 +126,7 @@ const LoginScreen = ({ navigation, route }) => {
                     <View style={styles.buttonContainer}>
                         <SubmitButton title="Submit" />
                     </View>
-                   
+                       
                 </CustomForm>
 
                 <CustomText fontFamily="arimoBold" size="2" color="rgba(9,19,128,1)" >

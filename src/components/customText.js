@@ -19,6 +19,6 @@ const CustomText = ({
             {children}
         </Text>
     );
-};
+};  
 
 export default CustomText;

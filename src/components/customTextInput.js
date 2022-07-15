@@ -18,7 +18,7 @@ const CustomTextInput = ({ icon, ...otherProps }) => {
         </View>
     );
 };
-
+   
 export default CustomTextInput;
 
 const styles = StyleSheet.create({

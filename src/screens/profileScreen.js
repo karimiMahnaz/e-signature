@@ -7,7 +7,7 @@ import NetInfo from "@react-native-community/netinfo";
 ///import { loadingToast } from '../utils/toasts';
 
 import { styles } from '../styles/profileScreen';
-
+   
 
 ///loadingToast('Loading');
 // Toast.hide();

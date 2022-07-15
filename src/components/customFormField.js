@@ -21,6 +21,6 @@ const CustomFormField = ({ name, ...otherProps }) => {
             <ErrorMessage error={errors[name]} visible={touched[name]} />
         </>
     );
-};
+};  
 
 export default CustomFormField;

@@ -88,10 +88,10 @@ const WelcomeScreen = ({ navigation }) => {
                     color="rgba(9,19,128,1)"
                     onPress={() => { }} />
 
-                <CustomButton
+                {/* <CustomButton
                     title="Assign SofTesting's contracts"
                     color="rgba(9,19,128,1)"
-                    onPress={() => { }} />
+                    onPress={() => { }} /> */}
 
             </View>
         </ImageBackground>

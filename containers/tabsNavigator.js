@@ -5,7 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import WelcomeScreen from "../src/screens/welcomeScreen";
 import LoginScreen from '../src/screens/loginScreen';
 import ProfileScreen from '../src/screens/profileScreen';
-
+import SignScreen from '../src/screens/signScreen';
+import DocumentScreen from '../src/screens/documentScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -34,22 +35,26 @@ const TabsNavigator = () => {
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
 
-                        if (route.name === "tracking") {
-                            iconName = focused ? "archive-search" : "archive-search-outline";
+                        if (route.name === "signature") {
+                            iconName = focused    
+                                ? "archive-search" 
+                                : "archive-search-outline";
                         } else if (route.name === "profile") {
                             iconName = focused
                                 ? "face-man-profile"
                                 : "face-woman-profile";
                         } else if (route.name === "login") {
                             iconName = "login";
-                        } else if (route.name === "documents") {
-                            iconName = focused ? "file-document"
+                        } else if (route.name === "document") {
+                            iconName = focused 
+                                ? "file-document"
                                 : "file-document-edit-outline"
                         // } else if (route.name === "assigning") {
                         //     iconName = focused ? "file-link"
                         //         : "file-link-outline"
                         } else if (route.name === "welcome") {
-                            iconName = focused ? "water-well"
+                            iconName = focused 
+                                ? "water-well"
                                 : "water-well-outline"
                         }
 
@@ -82,15 +87,13 @@ const TabsNavigator = () => {
                 name="welcome"
                 component={WelcomeScreen}
                 options={{
-
                     headerShown: false,
-
                 }}
             />
 
             <Tab.Screen
-                name="documents"
-                component={LoginScreen}
+                name="signature"
+                component={SignScreen}
                 options={{
                     // tabBarLabel: "document",
                     headerShown: false,
@@ -114,8 +117,8 @@ const TabsNavigator = () => {
             />
 
             <Tab.Screen
-                name="tracking"
-                component={LoginScreen}
+                name="document"
+                component={DocumentScreen}
                 options={{
                     headerShown: false,
                     tabBarBadge: 3,

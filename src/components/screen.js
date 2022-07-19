@@ -10,7 +10,7 @@ export default Screen;
 
 const styles = StyleSheet.create({
     screen: {
-        marginTop: Constans.statusBarHeight,
+        marginTop: Constans.statusBarHeight + 50,
         flex: 1,
     },
 });

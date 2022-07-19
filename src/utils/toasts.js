@@ -25,7 +25,7 @@ export const loadingToast = (message) => {
 
 export const customToast = (message) => {
     Toast.show(message, {
-        position: Toast.position.BOTTOM,
+        position: Toast.position.CENTER,
         textStyle: {
             fontFamily: "arimoRegular",
             fontSize: RFPercentage("1.5"),

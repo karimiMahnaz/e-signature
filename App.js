@@ -8,6 +8,8 @@ import * as Font from 'expo-font';
 import WelcomeScreen from "./src/screens/welcomeScreen";
 import LoginScreen  from "./src/screens/loginScreen";
 import ProfileScreen  from "./src/screens/profileScreen";
+import SignScreen  from "./src/screens/signScreen";
+import DocumentScreen  from "./src/screens/documentScreen";
 import TabsNavigator from "./containers/tabsNavigator";
 import  './src/utils/ignoreWarnings';
 
@@ -78,6 +80,8 @@ export default function App() {
                <Stack.Screen name="welcome" component={WelcomeScreen}  />          
                <Stack.Screen name="login" component={LoginScreen} />
                <Stack.Screen name="profile" component={ProfileScreen} />
+               <Stack.Screen name="signature" component={SignScreen} />
+               <Stack.Screen name="document" component={DocumentScreen} />
                 {/* options={{headerTitle: 'profile', headerShown: true}} */}
                 {/* options={{headerShown: false}} */}
             </Stack.Navigator>

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, ImageBackground, TouchableOpacity, Linking } from 'react-native';
+import { View, ImageBackground, TouchableOpacity, Linking, Keyboard } from 'react-native';
 import * as Yup from "yup";
-import { customToast, loadingToast, successToast } from '../utils/toasts';
 import NetInfo from "@react-native-community/netinfo";
 import Toast from "react-native-tiny-toast";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { styles } from '../styles/loginScreen';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { decodeToken } from "./../utils/token";
 
+import { styles } from '../styles/loginScreen';
+import { loginUser } from "../../api/users";
+import { customToast, loadingToast, successToast } from '../utils/toasts';
 import {CustomText,
     CustomForm,
     CustomFormField,
@@ -28,63 +30,58 @@ const validationSchema = Yup.object().shape({
 const LoginScreen = ({ navigation, route }) => {
 
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    useEffect(() => {
+     useEffect(() => {
         const checkForNet = async () => {
             const state = await NetInfo.fetch();
             if (!state.isConnected) { customToast('please connect to the internet'); }
             //confirmationAlert();
             else {
-                // const token = await AsyncStorage.getItem("token");
-                // const userId = JSON.parse(await AsyncStorage.getItem("userId"));
+                const token = await AsyncStorage.getItem("token");
+                const userId = JSON.parse(await AsyncStorage.getItem("userId"));
 
-                // if (token !== null && userId !== null) {
-                //     const decodedToken = decodeToken(token);
+                if (token !== null && userId !== null) {
+                    const decodedToken = decodeToken(token);
 
-                //     dispatch(userAction(decodedToken.user));
+               ///     dispatch(userAction(decodedToken.user));
 
-                //     if (decodedToken.user.userId === userId)
-                //         navigation.dispatch(StackActions.replace("Home"));
-                //     else {
-                //         await AsyncStorage.removeItem("token");
-                //         await AsyncStorage.removeItem("userId");
-                //         navigation.navigate("Login");
-                //     }
-                // }
+                    if (decodedToken.userId !== userId)
+                       /// navigation.dispatch(StackActions.replace("Home"));
+
+               ///     else
+                    {
+                        await AsyncStorage.removeItem("token");
+                        await AsyncStorage.removeItem("userId");
+                    }
+                }
             }
         };
         checkForNet();
     }, []);
 
 
-
-    const onSubmit = async (data, e) => {
-
-    }
-
-    //     const handleUserLogin = async (user) => {
-    //         try {
-    //             loadingToast("Connecting...");
-    //             const status = 200;//await loginUser(user);
-    //             if (status === 200) {
-    //                 Toast.hide();
-    //                 successToast("success");
-    //                 // navigation.navigate("Home");
-    //                 navigation.reset({
-    //                     index: 0,
-    //                     routes: [{ name: "welcome" }],
-    //                 });
-    //             } else {
-    //                 Toast.hide();
-    //                 customToast(" email or password is not valid! ");
-    //             }
-    //         } catch (err) {
-    //             Toast.hide();
-    //             console.log(err);
-    //         }
-    //     };
+         const handleUserLogin = async (user) => {
+             try {
+                loadingToast("Connecting...");
+                Keyboard.dismiss () ;
+                const status = await loginUser(user);
+                
+                if (status === 200) {
+                    Toast.hide();
+                    successToast("welcome...");
+    
+                     navigation.reset({
+                         index: 0,
+                         routes: [{ name: "Home" }],
+                     });
+                } else {
+                    Toast.hide();
+                    customToast(" email or password is not valid! ");
+                }
+            } catch (err) {
+                Toast.hide();
+                console.log(err);
+            }
+        };
 
 
     return (
@@ -97,7 +94,9 @@ const LoginScreen = ({ navigation, route }) => {
                 <CustomForm initialValues={{ email: "", password: "" }}
 
 
-                    onSubmit={() => navigation.navigate("welcome")}
+                  onSubmit={(user) => {
+                    handleUserLogin(user);
+                     }}
                     validationSchema={validationSchema}
                 >
 

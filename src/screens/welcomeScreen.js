@@ -1,49 +1,59 @@
-import React, { useEffect } from 'react';
-import CustomButton from '../components/customButton';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, ImageBackground } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
-
-///import { loadingToast } from '../utils/toasts';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from '../styles/welcomeScreen';
-///import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { customToast } from '../utils/toasts';
+import CustomButton from '../components/customButton';
 
 
 ///loadingToast('Loading');
 // Toast.hide();
+
+
 const WelcomeScreen = ({ navigation }) => {
   
+
+    const [email, setEmail] = useState('');
+
     useEffect(() => {
         const checkForNet = async () => {
             const state = await NetInfo.fetch();
-            if (!state.isConnected) { customToast('please connect to the internet'); }
-            //confirmationAlert();
-            else {
-   
+            if (!state.isConnected) { 
+                customToast('please connect to the internet'); 
+            } else {
+
                 navigation.setOptions({
-                  tabBarStyle: {display: 'none'}
-                
-                  });
-                // const token = await AsyncStorage.getItem("token");
-                // const userId = JSON.parse(await AsyncStorage.getItem("userId"));
-
-                // if (token !== null && userId !== null) {
-                //     const decodedToken = decodeToken(token);
-
-                //     dispatch(userAction(decodedToken.user));
-
-                //     if (decodedToken.user.userId === userId)
-                //         navigation.dispatch(StackActions.replace("Home"));
-                //     else {
-                //         await AsyncStorage.removeItem("token");
-                //         await AsyncStorage.removeItem("userId");
-                //         navigation.navigate("Login");
-                //     }
-                // }
+                    tabBarStyle: {display: 'none'}
+                  
+                    });
+               }
             }
-        };
         checkForNet();
     }, []);
+
+   
+    useEffect(() => {
+
+        const readStorage = async() =>{
+            const x = await AsyncStorage.getItem('email');
+            setEmail(JSON.parse(x));
+            return (email);
+        }
+         readStorage();
+    
+    }, []);
+
+    const handleLogout= async() =>{
+     
+            await AsyncStorage.removeItem("token");
+            await AsyncStorage.removeItem("userId");
+            await AsyncStorage.removeItem("email");
+            setEmail(null);
+         ///   navigation.dispatch(StackActions.replace("Welcome"));
+              customToast("Logout");
+        }
 
 
     return (
@@ -51,7 +61,6 @@ const WelcomeScreen = ({ navigation }) => {
             source={require("../assets/images/abstract.jpg")}
             style={styles.background}
             blurRadius={1}
-
         >
 
             <View style={styles.logoContainer}>
@@ -65,12 +74,15 @@ const WelcomeScreen = ({ navigation }) => {
                 <Text style={styles.email}>
                     hello@SofTestingCa.com
                 </Text>
+
+                {email ? <Text style={styles.useremail}>  Welcome {email} </Text> : null}
+
             </View>
             <View style={styles.buttonContainer}>
                 <CustomButton
-                    title="Signing personal documents"
+                    title="Signature"
                     color="rgba(9,19,128,1)"
-                    onPress={() => { }}
+                    onPress={() => {navigation.navigate("signature") }}
                 />
 
                 <CustomButton
@@ -84,14 +96,14 @@ const WelcomeScreen = ({ navigation }) => {
                     onPress={() => {navigation.navigate("profile") }} />
 
                 <CustomButton
-                    title="Track your contracts in SofTesting"
+                    title="Documents"
                     color="rgba(9,19,128,1)"
-                    onPress={() => { }} />
+                    onPress={() => {navigation.navigate("document") }} />
 
-                {/* <CustomButton
-                    title="Assign SofTesting's contracts"
+                 <CustomButton
+                    title="Logout"
                     color="rgba(9,19,128,1)"
-                    onPress={() => { }} /> */}
+                    onPress={handleLogout} /> 
 
             </View>
         </ImageBackground>

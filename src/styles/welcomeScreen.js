@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-end",
         alignItems: "center",
-        backgroundColor:"rgba(6, 15, 117, 0.8)"
     },
     logo: {
         width: 200,
@@ -36,5 +35,11 @@ export const styles = StyleSheet.create({
         color: "rgba(9,19,128,1)",
         fontWeight:'bold',
     },
-   
+    useremail:{
+        fontFamily: "arimoBold",
+        fontSize: 12,
+        top: 70,
+        color: "rgba(9,19,128,1)",
+        fontWeight:'bold',
+    }
 });
